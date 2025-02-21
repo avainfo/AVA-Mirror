@@ -35,11 +35,14 @@ jobs:
       - name: Show All Running Containers
         run: docker ps -a
 
-      - name: Show Backend Logs
+      - name: Show Backend Logs (if available)
         run: |
           CONTAINER_ID=$(docker ps -a --format "{{.ID}} {{.Names}}" | grep "backend" | awk '{print $1}')
           echo "Backend container ID: $CONTAINER_ID"
           docker logs $CONTAINER_ID || true
+
+      - name: Verify backend-api.dll exists in the image
+        run: docker run --rm ava-mirror-backend ls -la /app
 
       - name: Check if Backend Container is Running
         run: docker compose ps backend
