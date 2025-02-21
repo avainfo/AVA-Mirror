@@ -1,52 +1,48 @@
-name: CI/CD - Docker Build & Deploy
+name: CI - Docker Local Build & Test
 
 on:
-  workflow_dispatch:
   push:
     branches:
-      - main
-      - feature/docker-configuration
+      - dev
   pull_request:
     branches:
-      - main
+      - dev
 
 jobs:
-  build-and-push:
-    name: Build & Push Docker Image
+  build-and-test:
+    name: Build & Test Docker Locally
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build & Tag Image
+      - name: Set up Docker
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/miroir-backend:latest ./backend-api
+          docker --version
+          docker-compose --version
 
-      - name: Push Image to Docker Hub
+      - name: Create .env file
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/miroir-backend:latest
+          echo "POSTGRES_USER=admin" >> .env
+          echo "POSTGRES_PASSWORD=password" >> .env
+          echo "POSTGRES_DB=miroir_db" >> .env
 
-  deploy:
-    name: Deploy to Server
-    runs-on: ubuntu-latest
-    needs: build-and-push
+      - name: Build & Start Docker Containers
+        run: |
+          docker-compose -f docker-compose.yml up -d --build
 
-    steps:
-      - name: SSH into Server & Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/miroir-backend:latest
-            docker stop miroir-backend || true
-            docker rm miroir-backend || true
-            docker run -d --name miroir-backend -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/miroir-backend:latest
+      - name: Wait for API to Start
+        run: sleep 10
+
+      - name: Health Check API
+        run: |
+          curl -f http://localhost:8080/health || exit 1
+
+      - name: Run API Tests
+        run: |
+          docker exec $(docker ps -q -f name=backend) dotnet test --verbosity normal
+
+      - name: Stop & Clean Up Containers
+        if: always()
+        run: docker-compose down
