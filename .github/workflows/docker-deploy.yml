@@ -22,40 +22,21 @@ jobs:
           docker --version
           docker compose version
 
-      - name: Create .env file
-        run: |
-          echo "POSTGRES_USER=admin" >> .env
-          echo "POSTGRES_PASSWORD=password" >> .env
-          echo "POSTGRES_DB=miroir_db" >> .env
-
       - name: Build & Start Docker Containers
-        run: |
-          docker compose up -d --build
-
-      - name: Show All Running Containers
-        run: docker ps -a
-
-      - name: Show Backend Logs (if available)
-        run: |
-          CONTAINER_ID=$(docker ps -a --format "{{.ID}} {{.Names}}" | grep "backend" | awk '{print $1}')
-          echo "Backend container ID: $CONTAINER_ID"
-          docker logs $CONTAINER_ID || true
-
-      - name: Verify backend-api.dll exists in the image
-        run: docker run --rm ava-mirror-backend ls -la /app
-
-      - name: Check if Backend Container is Running
-        run: docker compose ps backend
+        run: docker compose up -d --build
 
       - name: Wait for API to Start
         run: |
           for i in {1..30}; do
-            docker compose ps backend
-            curl -s http://localhost:8080/health && exit 0
+            curl -s http://localhost:8080/test && exit 0
             echo "Waiting for API to start..."
             sleep 2
           done
           echo "API did not start in time" && exit 1
+
+      - name: Run Integration Tests
+        run: |
+          curl -s http://localhost:8080/test | grep "Test"
 
       - name: Stop & Clean Up Containers
         if: always()
