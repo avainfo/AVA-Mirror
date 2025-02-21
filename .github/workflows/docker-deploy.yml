@@ -30,17 +30,24 @@ jobs:
 
       - name: Build & Start Docker Containers
         run: |
-          docker compose -f docker-compose.yml up -d --build
+          docker compose up -d --build
 
-      - name: Check Running Containers
-        run: docker compose ps
+      - name: Show All Running Containers
+        run: docker ps -a
 
       - name: Show Backend Logs
-        run: docker logs $(docker ps -q -f name=backend) || true
+        run: |
+          CONTAINER_ID=$(docker ps -a --format "{{.ID}} {{.Names}}" | grep "backend" | awk '{print $1}')
+          echo "Backend container ID: $CONTAINER_ID"
+          docker logs $CONTAINER_ID || true
+
+      - name: Check if Backend Container is Running
+        run: docker compose ps backend
 
       - name: Wait for API to Start
         run: |
           for i in {1..30}; do
+            docker compose ps backend
             curl -s http://localhost:8080/health && exit 0
             echo "Waiting for API to start..."
             sleep 2
