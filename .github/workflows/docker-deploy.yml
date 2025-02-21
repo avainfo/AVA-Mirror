@@ -32,12 +32,20 @@ jobs:
         run: |
           docker compose -f docker-compose.yml up -d --build
 
-      - name: Wait for API to Start
-        run: sleep 10
+      - name: Check Running Containers
+        run: docker compose ps
 
-      - name: Health Check API
+      - name: Show Backend Logs
+        run: docker logs $(docker ps -q -f name=backend) || true
+
+      - name: Wait for API to Start
         run: |
-          curl -f http://localhost:8080/health || exit 1
+          for i in {1..30}; do
+            curl -s http://localhost:8080/health && exit 0
+            echo "Waiting for API to start..."
+            sleep 2
+          done
+          echo "API did not start in time" && exit 1
 
       - name: Run API Tests
         run: |
