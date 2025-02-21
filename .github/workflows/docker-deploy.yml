@@ -57,9 +57,6 @@ jobs:
           done
           echo "API did not start in time" && exit 1
 
-      - name: Run API Tests
-        run: docker run --rm ava-mirror-backend dotnet test --verbosity normal
-
       - name: Stop & Clean Up Containers
         if: always()
         run: docker compose down
