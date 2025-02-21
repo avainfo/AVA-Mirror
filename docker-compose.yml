@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   backend:
@@ -9,19 +9,19 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
     depends_on:
       - db
-    volumes:
-      - ./backend-api:/app
-      - /app/bin
-      - /app/obj
-
+    entrypoint: [ "dotnet", "/app/backend-api.dll" ]
+  
+  
   db:
     image: postgres:16
     restart: always
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=miroir_db
     ports:
       - "5432:5432"
     volumes:
