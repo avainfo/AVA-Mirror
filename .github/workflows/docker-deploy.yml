@@ -1,0 +1,43 @@
+name: CI - Docker Local Build & Test
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-and-test:
+    name: Build & Test Docker Locally
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        run: |
+          docker --version
+          docker compose version
+
+      - name: Build & Start Docker Containers
+        run: docker compose up -d --build
+
+      - name: Wait for API to Start
+        run: |
+          for i in {1..30}; do
+            curl -s http://localhost:8080/test && exit 0
+            echo "Waiting for API to start..."
+            sleep 2
+          done
+          echo "API did not start in time" && exit 1
+
+      - name: Run Integration Tests
+        run: |
+          curl -s http://localhost:8080/test | grep "Test"
+
+      - name: Stop & Clean Up Containers
+        if: always()
+        run: docker compose down
