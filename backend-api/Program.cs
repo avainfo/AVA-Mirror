@@ -17,6 +17,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/test", () => Results.Ok("Test"));
+app.MapGet("/api/test", () => Results.Ok("Test"));
 
 app.Run();
