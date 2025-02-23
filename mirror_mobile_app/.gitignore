@@ -1,0 +1,79 @@
+# Flutter files
+.flutter-plugins
+.flutter-plugins-dependencies
+.melos/
+.melange/
+.pub-cache/
+.dart_tool/
+build/
+generated_plugin_registrant.dart
+.metadata
+
+# Caches & logs
+*.log
+*.lock
+*.tmp
+*.swp
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Keys & private files
+*.keystore
+*.jks
+*.p12
+*.pem
+*.crt
+*.key
+.env
+firebase_options.dart
+
+# Flutter generated files
+**/ios/Flutter/Flutter.podspec
+**/ios/.symlinks/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/.dart_tool/
+**/ios/Pods/
+**/ios/Runner.xcworkspace/
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Android
+android/.gradle/         # Gradle build files
+android/.idea/           # IntelliJ/Android Studio settings
+android/app/build/       # Android build output
+android/local.properties # Local SDK paths
+android/key.properties   # Keystore properties
+android/app/key.jks      # Keystore file
+
+# iOS
+ios/Runner.xcworkspace/  # Xcode workspace
+ios/Pods/                # CocoaPods dependencies
+ios/.generated/          # Generated files
+ios/Flutter/*.xcconfig
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/flutter_assets/
+ios/Flutter/ephemeral/
+ios/Runner.xcodeproj/project.xcworkspace/
+ios/Runner.xcodeproj/xcshareddata/
+ios/.idea/               # IntelliJ/Android Studio settings
+ios/xcuserdata/          # Xcode user-specific settings
+
+# Firebase
+.firebase/
+.firebase-analytics/
+.firebase-functions/
+.firebase-hosting/
+.firebase-messaging/
+.firebase-remote-config/
+.firebase-performance/
+firebase-debug.log
+firebase-debug.*
+
+# Flutter auto-generated files
+**/generated_plugin_registrant.*
+**/generated_plugins.*
