@@ -46,7 +46,12 @@ jobs:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Set Google Cloud Project
-        run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+          echo "Using GCP Project: ${{ secrets.GCP_PROJECT_ID }}"
+
+      - name: Configure Docker for GCR
+        run: gcloud auth configure-docker --quiet
 
       - name: Build & Push Docker Image
         run: |
@@ -61,4 +66,4 @@ jobs:
             --allow-unauthenticated
 
       - name: Deploy Firebase Hosting
-        run: firebase deploy --token "${{ secrets.FIREBASE_DEPLOY_TOKEN }}"
+        run: firebase deploy --token "${{ secrets.FIREBASE_DEPLOY_TOKEN }}" --debug
