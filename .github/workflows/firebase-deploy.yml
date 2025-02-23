@@ -50,12 +50,12 @@ jobs:
 
       - name: Build & Push Docker Image
         run: |
-          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/miroir-backend
+          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/ava-mirror
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy ava-mirror \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/miroir-backend \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/ava-mirror \
             --platform managed \
             --region europe-west9 \
             --allow-unauthenticated
