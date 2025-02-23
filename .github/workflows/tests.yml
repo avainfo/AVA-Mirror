@@ -51,7 +51,7 @@ jobs:
         run: |
           flutter pub get
           cd mirror_software && flutter pub get
-          cd ../mobile_app && flutter pub get
+          cd ../mirror_mobile_app && flutter pub get
 
       - name: Run Flutter Tests (Mirror)
         run: |
@@ -60,5 +60,5 @@ jobs:
 
       - name: Run Flutter Tests (Mobile)
         run: |
-          cd mobile_app
+          cd mirror_mobile_app
           flutter test
