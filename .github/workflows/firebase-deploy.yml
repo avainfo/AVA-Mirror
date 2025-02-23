@@ -50,7 +50,7 @@ jobs:
 
       - name: Build & Push Docker Image
         run: |
-          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/ava-mirror
+          gcloud builds submit backend-api/ --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/ava-mirror
 
       - name: Deploy to Cloud Run
         run: |
