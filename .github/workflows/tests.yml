@@ -41,24 +41,31 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
+      - name: Setup Flutter (Latest Stable 3.29.0)
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.0'
-          channel: stable
 
-      - name: Install Dependencies
+      - name: Display Flutter & Dart Versions
         run: |
-          flutter pub get
-          cd mirror-software && flutter pub get
-          cd ../mobile-app && flutter pub get
+          flutter --version
+          dart --version
+
+      - name: Debug - Check Files
+        run: ls -l && ls -l mirror_software && ls -l mirror_mobile_app
+
+      - name: Install Dependencies (Mirror)
+        run: flutter pub get
+        working-directory: mirror_software
+
+      - name: Install Dependencies (Mobile)
+        run: flutter pub get
+        working-directory: mirror_mobile_app
 
       - name: Run Flutter Tests (Mirror)
-        run: |
-          cd mirror-software
-          flutter test
+        run: flutter test
+        working-directory: mirror_software
 
       - name: Run Flutter Tests (Mobile)
-        run: |
-          cd mobile-app
-          flutter test
+        run: flutter test
+        working-directory: mirror_mobile_app
