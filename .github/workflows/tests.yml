@@ -41,11 +41,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
+      - name: Setup Flutter (Latest Stable)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.30.0-1.0.pre'
-          channel: beta
+          flutter-version: 'stable'
+          channel: stable
+
+      - name: Display Flutter & Dart Versions
+        run: |
+          flutter --version
+          dart --version
 
       - name: Debug - Check Files
         run: ls -l && ls -l mirror_software && ls -l mirror_mobile_app
