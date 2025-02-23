@@ -28,7 +28,7 @@ jobs:
       - name: Wait for API to Start
         run: |
           for i in {1..30}; do
-            curl -s http://localhost:8080/test && exit 0
+            curl -s http://localhost:8080/api/test && exit 0
             echo "Waiting for API to start..."
             sleep 2
           done
@@ -36,7 +36,7 @@ jobs:
 
       - name: Run Integration Tests
         run: |
-          curl -s http://localhost:8080/test | grep "Test"
+          curl -s http://localhost:8080/api/test | grep "Test"
 
       - name: Stop & Clean Up Containers
         if: always()
