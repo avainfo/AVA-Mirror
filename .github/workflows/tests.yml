@@ -45,7 +45,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.30.0-1.0.pre'
-          channel: master
+          channel: beta
 
       - name: Debug - Check Files
         run: ls -l && ls -l mirror_software && ls -l mirror_mobile_app
