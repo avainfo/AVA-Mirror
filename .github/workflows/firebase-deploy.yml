@@ -69,4 +69,4 @@ jobs:
             --allow-unauthenticated
 
       - name: Deploy Firebase Hosting
-        run: firebase deploy --token "${{ secrets.FIREBASE_DEPLOY_TOKEN }}" --debug
+        run: firebase deploy --debug
