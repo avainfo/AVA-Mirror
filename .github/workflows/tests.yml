@@ -41,11 +41,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Flutter (Latest Stable)
+      - name: Setup Flutter (Latest Stable 3.29.0)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
-          channel: stable
+          flutter-version: '3.29.0'
 
       - name: Display Flutter & Dart Versions
         run: |
