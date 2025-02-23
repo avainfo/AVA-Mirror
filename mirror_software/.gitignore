@@ -1,0 +1,60 @@
+# Flutter files
+.flutter-plugins
+.flutter-plugins-dependencies
+.melos/
+.melange/
+.pub-cache/
+.dart_tool/
+build/
+generated_plugin_registrant.dart
+
+# Caches & logs
+*.log
+*.lock
+*.tmp
+*.swp
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Keys & private files
+*.keystore
+*.jks
+*.p12
+*.pem
+*.crt
+*.key
+.env
+firebase_options.dart
+
+# Flutter generated files
+**/ios/Flutter/Flutter.podspec
+**/ios/.symlinks/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/.dart_tool/
+**/ios/Pods/
+**/ios/Runner.xcworkspace/
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Linux & Windows
+linux/build/
+windows/build/
+windows/runner/
+
+# Firebase
+.firebase/
+.firebase-analytics/
+.firebase-functions/
+.firebase-hosting/
+.firebase-messaging/
+.firebase-remote-config/
+.firebase-performance/
+firebase-debug.log
+firebase-debug.*
+
+# Flutter auto-generated files
+**/generated_plugin_registrant.*
+**/generated_plugins.*
