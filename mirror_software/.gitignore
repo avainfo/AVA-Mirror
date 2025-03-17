@@ -1,33 +1,52 @@
+# Flutter & dart
+.dart_tool/
+.build/
+.idea/
+.pub/
+
 # Flutter files
 .flutter-plugins
 .flutter-plugins-dependencies
+.packages
+*.iml
+
+# Cache et builds
 .melos/
 .melange/
 .pub-cache/
-.dart_tool/
 build/
+linux/build/
+linux/runner/
+windows/build/
+windows/runner/
 generated_plugin_registrant.dart
 
+# Logs et fichiers système
 # Caches & logs
 *.log
+*.DS_Store
 *.lock
 *.tmp
 *.swp
+*.swo
+*.swn
+*.bak
 
-# IDE files
-.idea/
-.vscode/
-*.iml
+# Fichiers liés à l'environnement et configurations locales
+.env
 
 # Keys & private files
 *.keystore
+key.jks
 *.jks
 *.p12
 *.pem
 *.crt
 *.key
-.env
 firebase_options.dart
+
+# Flutter output et test files
+coverage/
 
 # Flutter generated files
 **/ios/Flutter/Flutter.podspec
@@ -39,11 +58,15 @@ firebase_options.dart
 **/ios/Runner.xcworkspace/
 **/ios/Runner/GeneratedPluginRegistrant.*
 
-# Linux & Windows
-linux/build/
-windows/build/
-windows/runner/
+# Firebase & Secrets
+firebase.json
+google-services.json
+*.plist
 
+# Generated Files
+/linux/flutter/ephemeral/
+
+/windows/flutter/ephemeral/
 # Firebase
 .firebase/
 .firebase-analytics/
