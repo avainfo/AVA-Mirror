@@ -4,9 +4,9 @@
 
 `J`ust<br>
 `A`<br>
-`V`irtual<br>
-`A`ssistant for<br>
-`M`e
+`V`ision<br>
+`A`ugmented<br>
+`M`irror
 ## 📂 Project Structure
 ```
 mirror-connecte/
