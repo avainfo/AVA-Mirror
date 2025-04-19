@@ -1,7 +1,12 @@
-# AVA Mirror
+# Javam Mirror
 
 🚀 **A connected smart mirror with customizable widgets, real-time synchronization, and a modern interface.**
 
+`J`ust<br>
+`A`<br>
+`V`irtual<br>
+`A`ssistant for<br>
+`M`e
 ## 📂 Project Structure
 ```
 mirror-connecte/
